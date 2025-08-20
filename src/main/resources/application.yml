@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: jpa0820
+  datasource:
+    url: jdbc:h2:./db_dev;Mode=MySQL
+    username: sa
+    password:
+    dirve-class-name: org.h2.Driver
