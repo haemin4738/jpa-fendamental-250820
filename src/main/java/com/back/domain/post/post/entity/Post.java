@@ -1,4 +1,4 @@
-package com.back.domian.post.post.entity;
+package com.back.domain.post.post.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
