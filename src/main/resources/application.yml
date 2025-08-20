@@ -6,7 +6,15 @@ spring:
     username: sa
     password:
     dirve-class-name: org.h2.Driver
+  output:
+    ansi:
+      enabled: always
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true # SQL ??? ??
+        highlight_sql: true # SQL ?? ??
+        use_sql_comments: true # SQL? ?? ??
