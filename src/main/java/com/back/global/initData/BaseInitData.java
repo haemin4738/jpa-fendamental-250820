@@ -8,6 +8,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Optional;
+
 @Configuration
 public class BaseInitData {
 
@@ -17,20 +19,25 @@ public class BaseInitData {
     @Bean
     ApplicationRunner baseInitDataApplicationRunner() {
         return args -> {
-            if(postRepository.count() >0) {
-                return; // 데이터가 이미 존재하면 초기화하지 않음
-            }
-
-            Post post = new Post();
-            post.setTitle("제목 1");
-            postRepository.save(post);
-            // INSERT INTO post SET title = '제목 1';
-
-            Post post2 = new Post();
-            post2.setTitle("제목 2");
-            postRepository.save(post2);
-
-            System.out.println("기본 데이터가 초기화 되었습니다.");
+            work1();
+            work2();
         };
+    }
+
+    void work1() { // 생성 로직
+        if(postRepository.count() >0) {
+            return; // 데이터가 이미 존재하면 초기화하지 않음
+        }
+
+        postRepository.save(new Post("제목1", "내용1"));
+        // INSERT INTO post SET title = '제목 1';
+        postRepository.save( new Post("제목2", "내용2"));
+        // INSERT INTO post SET title = '제목 2';
+
+        System.out.println("기본 데이터가 초기화 되었습니다.");
+    }
+    void work2() { // 조회 로직
+        Optional<Post> opPost = postRepository.findById(1);
+        // SELECT * FROM post WHERE id = 1;
     }
 }
