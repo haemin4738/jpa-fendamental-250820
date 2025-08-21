@@ -3,25 +3,26 @@ package com.back.global.initData;
 
 import com.back.domain.post.post.entity.Post;
 import com.back.domain.post.post.service.PostService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Configuration
 public class BaseInitData {
-    private PostService postService;
-
-    public BaseInitData (PostService postService) {
-        this.postService = postService;
-    } // -> @AllArgsConstructor로 대체 가능
+    private final PostService postService;
+    private int callCount = 0;
 
     @Bean
     ApplicationRunner baseInitDataApplicationRunner() {
         return args -> {
             work1();
             work2();
+
+            callCount++;
         };
     }
 
