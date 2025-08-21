@@ -11,4 +11,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
     private int id; // INT
     private String title; // VARCHAR(255)
+
+    @Column(columnDefinition = "TEXT") // TEXT 타입으로 설정
+    private String content; // TEXT
 }
