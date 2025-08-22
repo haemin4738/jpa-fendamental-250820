@@ -5,9 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@ActiveProfiles("test")
+@Transactional
 @SpringBootTest
 public class PostRepositoryTest {
     @Autowired
@@ -32,5 +36,12 @@ public class PostRepositoryTest {
 
         assertThat(createdPost.getTitle()).isEqualTo("새 제목");
         assertThat(createdPost.getContent()).isEqualTo("새 내용");
+    }
+
+    @Test
+    @DisplayName("글 조회")
+    void t3 () {
+        long count = postRepository.count();
+        assertThat(count).isEqualTo(2);
     }
 }
