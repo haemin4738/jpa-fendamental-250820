@@ -21,4 +21,14 @@ public class PostRepositoryTest {
         assertThat(post2.getTitle()).isEqualTo("제목 2");
         assertThat(post2.getContent()).isEqualTo("내용 2");
     }
+
+    @Test
+    @DisplayName("글 생성")
+    void t2 () {
+        Post post = new Post("새 제목", "새 내용");
+        Post createdPost = postRepository.save(post);
+
+        assertThat(createdPost.getTitle()).isEqualTo("새 제목");
+        assertThat(createdPost.getContent()).isEqualTo("새 내용");
+    }
 }
