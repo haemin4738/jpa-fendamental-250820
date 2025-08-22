@@ -27,7 +27,9 @@ public class BaseInitData {
         return args -> {
             self.work1();
             self.work2();
-            self.work3();
+            // 별도의 Thread 를 사용 이유 : work3 메서드에서 예외가 발생해도 스프링부트가 꺼지지 않도록
+            new Thread(() -> self.work3()).start();
+            self.work4();
         };
     }
 
@@ -35,10 +37,8 @@ public class BaseInitData {
     void work1() {
         if (postService.count() > 0) return;
 
-        Post post1 = postService.save( new Post("제목 1", "내용 1"));
-        // INSERT INTO post SET title = '제목 1';
-        Post post2 = postService.save(new Post("제목 2", "내용 2"));
-        // INSERT INTO post SET title = '제목 2';
+        Post post1 = postService.write("제목 1", "내용 1");
+        Post post2 = postService.write("제목 2", "내용 2");
 
         System.out.println("post1.getId() : " +  post1.getId());
         System.out.println("post2.getId() : " +  post2.getId());
@@ -62,5 +62,21 @@ public class BaseInitData {
         Post post = opPost.get();
 
         postService.modify(post, "제목 1 수정", "내용 1 수정");
+
+        if (true) throw new RuntimeException("work3 에서 예외 발생");
+
+        Optional<Post> opPost2 = postService.findById(2);
+        Post post2 = opPost2.get();
+
+        postService.modify(post2, "제목 2 수정", "내용 2 수정");
+
+    }
+
+    @Transactional
+    void work4() {
+        Optional<Post> opPost1  = postService.findById(1);
+        Post post1 = opPost1.get();
+
+        postService.modify(post1, "제목 1 수정", "내용 1 수정");
     }
 }

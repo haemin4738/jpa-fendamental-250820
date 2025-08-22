@@ -22,9 +22,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
     private int id; // INT
     @CreatedDate
-    private LocalDateTime createDate; // 최초 INSERT시 자동으로 현재 시간으로 설정
+    private LocalDateTime createDate; // 최초 INSERT 시 자동으로 현재 시간으로 설정됨
     @LastModifiedDate
-    private LocalDateTime modifyDate; // INSERT/UPDATE시 자동으로 현재 시간으로 설정
+    private LocalDateTime modifyDate; // INSERT/UPDATE 시 자동으로 현재 시간으로 설정됨
     private String title; // VARCHAR(255)
     @Column(columnDefinition = "TEXT")
     private String content; // TEXT
