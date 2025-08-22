@@ -26,7 +26,9 @@ public class PostRepositoryTest {
     @DisplayName("글 생성")
     void t2 () {
         Post post = new Post("새 제목", "새 내용");
+        assertThat(post.getId()).isEqualTo(0);
         Post createdPost = postRepository.save(post);
+        assertThat(post.getId()).isGreaterThan(0);
 
         assertThat(createdPost.getTitle()).isEqualTo("새 제목");
         assertThat(createdPost.getContent()).isEqualTo("새 내용");
