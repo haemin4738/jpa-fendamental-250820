@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class PostService {
     private final PostRepository postRepository;
 
-    public Post save(Post post){
+    public Post save(Post post) {
         return postRepository.save(post);
     }
 
@@ -22,5 +22,13 @@ public class PostService {
 
     public long count() {
         return postRepository.count();
+    }
+
+    public void modify(Post post, String title, String content) {
+        post.setTitle(title);
+        post.setContent(content);
+
+        postRepository.save(post);
+        // UPDATE post SET title = ?, content = ?, modifyDate = ? where id = ?
     }
 }
